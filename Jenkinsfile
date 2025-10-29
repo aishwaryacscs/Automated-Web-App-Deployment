@@ -19,7 +19,7 @@ pipeline {
         stage('Deploy with PowerShell') {
             steps {
                 echo '🚀 Running PowerShell deployment script...'
-                powershell './deploy.ps1'
+                powershell 'powershell -ExecutionPolicy Bypass -File ./deploy.ps1'
             }
         }
     }
@@ -28,12 +28,6 @@ pipeline {
         success {
             echo '✅ Deployment completed successfully!'
         }
-        failure {
-            echo '❌ Deployment failed. Please check logs.'
-        }
-    }
-}
-
         failure {
             echo '❌ Deployment failed. Please check logs.'
         }
