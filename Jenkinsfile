@@ -4,18 +4,21 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/<your-username>/webapp.git'
+                echo '📦 Checking out source code...'
+                git branch: 'main', url: 'https://github.com/aishwaryacscs/Automated-Web-App-Deployment.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
+                echo '🐳 Building Docker image...'
                 sh 'docker build -t webapp .'
             }
         }
 
         stage('Deploy with PowerShell') {
             steps {
+                echo '🚀 Running PowerShell deployment script...'
                 powershell './deploy.ps1'
             }
         }
@@ -25,6 +28,12 @@ pipeline {
         success {
             echo '✅ Deployment completed successfully!'
         }
+        failure {
+            echo '❌ Deployment failed. Please check logs.'
+        }
+    }
+}
+
         failure {
             echo '❌ Deployment failed. Please check logs.'
         }
